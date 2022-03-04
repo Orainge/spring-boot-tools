@@ -1,0 +1,56 @@
+# 登录框架配置
+security:
+  # JWT 设置
+  jwt:
+    # JWT 密码盐
+    salt: 20HwNQinK8q9
+  # token 配置
+  token:
+    # token 在请求头里的名称
+    header-name: X-TOKEN
+    # token 有效期 (单位: 秒)
+    # 默认 1800 秒 (30分钟)
+    expire-time: 1800
+  # URL 配置
+  url:
+    # 登录接口配置
+    login:
+      # 请求 URL
+      url: /login
+      # 请求方式
+      method: POST
+      # 请求 Content-Type
+      # 默认为 application/json
+      content-type: application/json
+    # 退出登录接口配置
+    logout:
+      # 请求 URL
+      url: /logout
+    # (不推荐) 不需要登录就可以访问的 URL
+    # 在此配置的路径不经过 Spring Security 过滤器链
+    ignore:
+    #      - /noLoginUrl
+    # (推荐) 不需要登录就可以访问的 URL
+    # 在此配置的路径经过 Spring Security 过滤器链，但 Spring Security 会放行
+    permit-all:
+  #      - /noLoginUrl
+  # 提示语配置
+  tips:
+    get-token-exception: 获取 token 失败，请稍候再试
+    no-user: 用户不存在
+    login-success: 登录成功
+    login-fail: 登录失败
+    login-exception: 登录失败，请稍后再试
+    login-params-error: 登录请求参数不正确
+    logout-success: 退出登录成功
+    incorrect-password: 密码不正确
+    no-permission: 无权限访问
+    no-configure-permission: 无任何已配置权限，请联系管理员进行分配！
+    no-login: 用户未登录
+    account-locked: 账户已锁定
+    account-expired: 账户已过期
+    account-disabled: 账户被禁用
+    credentials-expired: 证书已过期
+    token-expire: token 已过期
+    # 系统异常
+    system-exception: 系统忙，请稍候再试

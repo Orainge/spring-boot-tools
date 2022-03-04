@@ -1,0 +1,32 @@
+# Spring boot 自动注入
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.orainge.tools.spring_boot.security.authentication.WebAuthenticationEntryPoint,\
+  com.orainge.tools.spring_boot.security.authentication.WebAuthenticationManager,\
+  com.orainge.tools.spring_boot.security.authentication.WebAuthenticationProvider,\
+  com.orainge.tools.spring_boot.security.authentication.WebUrlAccessDecisionManager,\
+  com.orainge.tools.spring_boot.security.authentication.WebUrlFilterInvocationSecurityMetadataSource,\
+  com.orainge.tools.spring_boot.security.authentication.WebUserDetailsServiceImpl,\
+  com.orainge.tools.spring_boot.security.config.AntPathMatcherConfig,\
+  com.orainge.tools.spring_boot.security.config.CustomSecurityConfig,\
+  com.orainge.tools.spring_boot.security.filter.WebAuthenticationFilter,\
+  com.orainge.tools.spring_boot.security.filter.WebAuthenticationProcessingFilter,\
+  com.orainge.tools.spring_boot.security.handler.WebLoginFailureHandler,\
+  com.orainge.tools.spring_boot.security.handler.WebLoginSuccessHandler,\
+  com.orainge.tools.spring_boot.security.handler.WebLogoutHandler,\
+  com.orainge.tools.spring_boot.security.handler.WebLogoutSuccessHandler,\
+  com.orainge.tools.spring_boot.security.handler.WebPermissionDeniedHandler,\
+  com.orainge.tools.spring_boot.security.interfaces.handler.impl.CheckUserHandlerImpl,\
+  com.orainge.tools.spring_boot.security.interfaces.handler.impl.LoginFailHandlerImpl,\
+  com.orainge.tools.spring_boot.security.interfaces.handler.impl.LoginSuccessHandlerImpl,\
+  com.orainge.tools.spring_boot.security.interfaces.handler.impl.LogoutFailHandlerImpl,\
+  com.orainge.tools.spring_boot.security.interfaces.handler.impl.LogoutSuccessHandlerImpl,\
+  com.orainge.tools.spring_boot.security.interfaces.handler.impl.NoLoginHandlerImpl,\
+  com.orainge.tools.spring_boot.security.interfaces.handler.impl.NoPermissionHandlerImpl,\
+  com.orainge.tools.spring_boot.security.utils.url.IgnoreUrlUtils,\
+  com.orainge.tools.spring_boot.security.utils.token.TokenUtils,\
+  com.orainge.tools.spring_boot.security.utils.token.handler.impl.JwtTokenCreateHandler,\
+  com.orainge.tools.spring_boot.security.utils.token.handler.impl.JwtTokenValidateHandler,\
+  com.orainge.tools.spring_boot.security.utils.token.handler.impl.JwtTokenExpireHandler,\
+  com.orainge.tools.spring_boot.security.utils.password.impl.SimplePasswordUtilsImpl,\
+  com.orainge.tools.spring_boot.security.utils.role.RoleUtils,\
+  com.orainge.tools.spring_boot.security.WebSecurityConfigurer
