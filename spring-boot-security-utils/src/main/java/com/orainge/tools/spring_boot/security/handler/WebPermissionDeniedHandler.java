@@ -1,7 +1,5 @@
 package com.orainge.tools.spring_boot.security.handler;
 
-import com.orainge.tools.spring_boot.filter.MultiReadHttpServletRequest;
-import com.orainge.tools.spring_boot.filter.MultiReadHttpServletResponse;
 import com.orainge.tools.spring_boot.security.interfaces.handler.NoPermissionHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.access.AccessDeniedException;
@@ -26,6 +24,6 @@ public class WebPermissionDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) {
-        noPermissionHandler.onNoPermission(new MultiReadHttpServletRequest(request), new MultiReadHttpServletResponse(response), e);
+        noPermissionHandler.onNoPermission(request, response, e);
     }
 }

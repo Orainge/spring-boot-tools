@@ -49,6 +49,6 @@ public class WebLoginSuccessHandler implements AuthenticationSuccessHandler {
         response.setHeader(tokenHeaderName, token);
 
         // 执行 Handler
-        loginSuccessHandler.onSuccess(token, new MultiReadHttpServletRequest(request), new MultiReadHttpServletResponse(response), authentication);
+        loginSuccessHandler.onSuccess(token, request, response, authentication);
     }
 }
