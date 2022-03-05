@@ -1,5 +1,7 @@
 package com.orainge.tools.spring_boot.security.handler;
 
+import com.orainge.tools.spring_boot.filter.MultiReadHttpServletRequest;
+import com.orainge.tools.spring_boot.filter.MultiReadHttpServletResponse;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -24,6 +26,6 @@ public class WebLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         // 执行 Handler
-        logoutSuccessHandler.onSuccess(request, response, authentication);
+        logoutSuccessHandler.onSuccess(new MultiReadHttpServletRequest(request), new MultiReadHttpServletResponse(response), authentication);
     }
 }

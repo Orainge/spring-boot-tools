@@ -1,8 +1,6 @@
 package com.orainge.tools.spring_boot.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.ServletResponse;
@@ -38,13 +36,17 @@ public class ResponseUtils {
         }
     }
 
-    public static void writeBody(HttpServletResponse httpServletResponse, Object obj, HttpStatus httpStatus) {
+    public static void writeBody(ServletResponse servletResponse, Object obj, HttpStatus httpStatus) {
         PrintWriter out = null;
-        httpServletResponse.setCharacterEncoding("UTF-8");
-        httpServletResponse.setContentType("application/json; charset=utf-8");
-        httpServletResponse.setStatus(httpStatus.value());
+        servletResponse.setCharacterEncoding("UTF-8");
+        servletResponse.setContentType("application/json; charset=utf-8");
+
+        if (servletResponse instanceof HttpServletResponse) {
+            ((HttpServletResponse) servletResponse).setStatus(httpStatus.value());
+        }
+
         try {
-            out = httpServletResponse.getWriter();
+            out = servletResponse.getWriter();
             out.print(JsonUtils.toJSONString(obj));
         } catch (IOException e) {
             log.error("Response 写入 Body 出错", e);

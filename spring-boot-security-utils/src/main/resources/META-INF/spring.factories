@@ -18,7 +18,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.orainge.tools.spring_boot.security.interfaces.handler.impl.CheckUserHandlerImpl,\
   com.orainge.tools.spring_boot.security.interfaces.handler.impl.LoginFailHandlerImpl,\
   com.orainge.tools.spring_boot.security.interfaces.handler.impl.LoginSuccessHandlerImpl,\
-  com.orainge.tools.spring_boot.security.interfaces.handler.impl.LogoutFailHandlerImpl,\
   com.orainge.tools.spring_boot.security.interfaces.handler.impl.LogoutSuccessHandlerImpl,\
   com.orainge.tools.spring_boot.security.interfaces.handler.impl.NoLoginHandlerImpl,\
   com.orainge.tools.spring_boot.security.interfaces.handler.impl.NoPermissionHandlerImpl,\

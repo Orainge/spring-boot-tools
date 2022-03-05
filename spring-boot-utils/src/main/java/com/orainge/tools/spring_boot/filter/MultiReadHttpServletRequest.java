@@ -27,7 +27,7 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
      */
     private Map<String, Object> extraParams;
 
-    public MultiReadHttpServletRequest(HttpServletRequest request) throws IOException {
+    public MultiReadHttpServletRequest(HttpServletRequest request) {
         super(request);
         this.body = getBodyString(request).getBytes(StandardCharsets.UTF_8);
     }

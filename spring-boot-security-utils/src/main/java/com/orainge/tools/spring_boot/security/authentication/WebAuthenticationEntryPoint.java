@@ -1,5 +1,7 @@
 package com.orainge.tools.spring_boot.security.authentication;
 
+import com.orainge.tools.spring_boot.filter.MultiReadHttpServletRequest;
+import com.orainge.tools.spring_boot.filter.MultiReadHttpServletResponse;
 import com.orainge.tools.spring_boot.security.interfaces.handler.NoLoginHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.core.AuthenticationException;
@@ -25,6 +27,6 @@ public class WebAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
-        noLoginHandler.onNoLogin(request, response, e);
+        noLoginHandler.onNoLogin(new MultiReadHttpServletRequest(request), new MultiReadHttpServletResponse(response), e);
     }
 }

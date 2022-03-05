@@ -1,5 +1,7 @@
 package com.orainge.tools.spring_boot.security.handler;
 
+import com.orainge.tools.spring_boot.filter.MultiReadHttpServletRequest;
+import com.orainge.tools.spring_boot.filter.MultiReadHttpServletResponse;
 import com.orainge.tools.spring_boot.security.config.CustomSecurityConfig;
 import com.orainge.tools.spring_boot.security.vo.SecurityUser;
 import com.orainge.tools.spring_boot.security.interfaces.handler.LoginSuccessHandler;
@@ -47,6 +49,6 @@ public class WebLoginSuccessHandler implements AuthenticationSuccessHandler {
         response.setHeader(tokenHeaderName, token);
 
         // 执行 Handler
-        loginSuccessHandler.onSuccess(token, request, response, authentication);
+        loginSuccessHandler.onSuccess(token, new MultiReadHttpServletRequest(request), new MultiReadHttpServletResponse(response), authentication);
     }
 }
