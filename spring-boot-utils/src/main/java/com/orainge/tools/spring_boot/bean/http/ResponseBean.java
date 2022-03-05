@@ -31,11 +31,15 @@ public abstract class ResponseBean<T> {
     /**
      * 设置数据并创建分页信息
      *
-     * @param data Mapper 方法
+     * @param mapperResult Mapper 方法执行结果
      */
-    public ResponseBean(List<T> data) {
+    public ResponseBean(List<T> mapperResult) {
+        buildData(mapperResult);
+    }
+
+    public void buildData(List<T> mapperResult) {
         // 创建分页信息
-        PageInfo<T> pageInfo = new PageInfo<>(data);
+        PageInfo<T> pageInfo = new PageInfo<>(mapperResult);
 
         // 设置总条数
         setTotal(pageInfo.getTotal());
@@ -44,6 +48,6 @@ public abstract class ResponseBean<T> {
         setTotalPage(pageInfo.getPages());
 
         // 设置数据
-        setData(data);
+        setData(mapperResult);
     }
 }
