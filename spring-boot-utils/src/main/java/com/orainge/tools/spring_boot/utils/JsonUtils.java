@@ -1,5 +1,6 @@
 package com.orainge.tools.spring_boot.utils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -22,13 +23,12 @@ public class JsonUtils {
     @Resource
     private ObjectMapper objectMapperBean;
 
-    private static ObjectMapper objectMapper = null;
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
     @PostConstruct
     public void init() {
-        objectMapper = objectMapperBean;
-        if (objectMapper == null) {
-            objectMapper = new ObjectMapper();
+        if (objectMapperBean != null) {
+            objectMapper = objectMapperBean;
         }
     }
 
@@ -43,6 +43,14 @@ public class JsonUtils {
     public static <T> T parseObject(String text, Class<T> clazz) {
         try {
             return StringUtils.isBlank(text) || clazz == null ? null : objectMapper.readValue(text, clazz);
+        } catch (Exception ignore) {
+            return null;
+        }
+    }
+
+    public static <T> T parseObject(String text, TypeReference<T> typeReference) {
+        try {
+            return StringUtils.isBlank(text) || typeReference == null ? null : objectMapper.readValue(text, typeReference);
         } catch (Exception ignore) {
             return null;
         }
