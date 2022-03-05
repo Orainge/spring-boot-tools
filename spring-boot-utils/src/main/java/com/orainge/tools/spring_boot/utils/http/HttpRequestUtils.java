@@ -19,12 +19,23 @@ public class HttpRequestUtils {
     /**
      * 获取请求参数
      *
-     * @param request       HttpServletRequest
-     * @param typeReference typeReference
-     * @param <T>           生成的请求对象类型
+     * @param request HttpServletRequest
+     * @param clazz   生成的请求对象类型
      * @return null: 获取请求参数失败; 非 null: 请求参数
      */
-    public <T> T getQueryParams(HttpServletRequest request, TypeReference<T> typeReference) {
+    public static <T> T getQueryParams(HttpServletRequest request, Class<T> clazz) {
+        return getQueryParams(request, new TypeReference<T>() {
+        });
+    }
+
+    /**
+     * 获取请求参数
+     *
+     * @param request       HttpServletRequest
+     * @param typeReference typeReference
+     * @return null: 获取请求参数失败; 非 null: 请求参数
+     */
+    public static <T> T getQueryParams(HttpServletRequest request, TypeReference<T> typeReference) {
         try {
             Map<String, String[]> requestParameterMap = request.getParameterMap();
 
@@ -38,14 +49,12 @@ public class HttpRequestUtils {
             String jsonStr = JsonUtils.toJSONString(queryParamsMap);
 
             // 再转换成 java 对象返回
-            return JsonUtils.parseObject(jsonStr, new TypeReference<T>() {
-            });
+            return JsonUtils.parseObject(jsonStr, typeReference);
         } catch (Exception e) {
             log.info("[Http Request 工具] - 获取请求参数失败", e);
             return null;
         }
     }
-
 
     /**
      * 获取请求参数，返回 Map
@@ -53,7 +62,7 @@ public class HttpRequestUtils {
      * @param request HttpServletRequestÚ
      * @return null: 获取请求参数失败; 非 null: 请求参数
      */
-    public Map<String, String> getQueryParamsMap(HttpServletRequest request) {
+    public static Map<String, String> getQueryParamsMap(HttpServletRequest request) {
         try {
             Map<String, String[]> requestParameterMap = request.getParameterMap();
 
