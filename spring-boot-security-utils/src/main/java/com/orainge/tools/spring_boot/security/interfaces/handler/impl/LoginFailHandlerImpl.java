@@ -3,7 +3,7 @@ package com.orainge.tools.spring_boot.security.interfaces.handler.impl;
 import com.orainge.tools.spring_boot.security.config.CustomSecurityConfig;
 import com.orainge.tools.spring_boot.security.interfaces.handler.LoginFailHandler;
 import com.orainge.tools.spring_boot.utils.http.HttpResponseUtils;
-import com.orainge.tools.spring_boot.vo.http.ApiResult;
+import com.orainge.tools.spring_boot.bean.http.ApiResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
