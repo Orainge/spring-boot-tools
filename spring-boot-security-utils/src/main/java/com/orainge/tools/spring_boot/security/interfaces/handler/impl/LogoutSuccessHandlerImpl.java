@@ -2,8 +2,8 @@ package com.orainge.tools.spring_boot.security.interfaces.handler.impl;
 
 import com.orainge.tools.spring_boot.security.config.CustomSecurityConfig;
 import com.orainge.tools.spring_boot.security.interfaces.handler.LogoutSuccessHandler;
-import com.orainge.tools.spring_boot.utils.ResponseUtils;
-import com.orainge.tools.spring_boot.vo.ApiResult;
+import com.orainge.tools.spring_boot.utils.http.HttpResponseUtils;
+import com.orainge.tools.spring_boot.vo.http.ApiResult;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -41,6 +41,6 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
      */
     public void onSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         // 返回退出登录成功信息
-        ResponseUtils.writeBody(response, ApiResult.success().setMessage(logoutSuccessTips));
+        HttpResponseUtils.writeBody(response, ApiResult.success().setMessage(logoutSuccessTips));
     }
 }

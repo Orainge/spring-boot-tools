@@ -2,8 +2,8 @@ package com.orainge.tools.spring_boot.security.interfaces.handler.impl;
 
 import com.orainge.tools.spring_boot.security.config.CustomSecurityConfig;
 import com.orainge.tools.spring_boot.security.interfaces.handler.NoPermissionHandler;
-import com.orainge.tools.spring_boot.utils.ResponseUtils;
-import com.orainge.tools.spring_boot.vo.ApiResult;
+import com.orainge.tools.spring_boot.utils.http.HttpResponseUtils;
+import com.orainge.tools.spring_boot.vo.http.ApiResult;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
@@ -33,6 +33,6 @@ public class NoPermissionHandlerImpl implements NoPermissionHandler {
     }
 
     public void onNoPermission(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) {
-        ResponseUtils.writeBody(response, ApiResult.forbidden().setMessage(noPermissionTips));
+        HttpResponseUtils.writeBody(response, ApiResult.forbidden().setMessage(noPermissionTips));
     }
 }

@@ -2,8 +2,8 @@ package com.orainge.tools.spring_boot.security.interfaces.handler.impl;
 
 import com.orainge.tools.spring_boot.security.config.CustomSecurityConfig;
 import com.orainge.tools.spring_boot.security.interfaces.handler.NoLoginHandler;
-import com.orainge.tools.spring_boot.utils.ResponseUtils;
-import com.orainge.tools.spring_boot.vo.ApiResult;
+import com.orainge.tools.spring_boot.utils.http.HttpResponseUtils;
+import com.orainge.tools.spring_boot.vo.http.ApiResult;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
@@ -33,6 +33,6 @@ public class NoLoginHandlerImpl implements NoLoginHandler {
     }
 
     public void onNoLogin(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
-        ResponseUtils.writeBody(response, ApiResult.unauthorized().setMessage(e == null ? noLoginTips : e.getMessage()));
+        HttpResponseUtils.writeBody(response, ApiResult.unauthorized().setMessage(e == null ? noLoginTips : e.getMessage()));
     }
 }

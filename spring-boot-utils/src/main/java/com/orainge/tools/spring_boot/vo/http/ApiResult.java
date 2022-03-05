@@ -1,4 +1,4 @@
-package com.orainge.tools.spring_boot.vo;
+package com.orainge.tools.spring_boot.vo.http;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,5 +1,6 @@
-package com.orainge.tools.spring_boot.utils;
+package com.orainge.tools.spring_boot.utils.http;
 
+import com.orainge.tools.spring_boot.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 
@@ -15,7 +16,7 @@ import java.io.PrintWriter;
  * @since 2022/3/2
  */
 @Slf4j
-public class ResponseUtils {
+public class HttpResponseUtils {
     /**
      * response 上输出 JSON
      */

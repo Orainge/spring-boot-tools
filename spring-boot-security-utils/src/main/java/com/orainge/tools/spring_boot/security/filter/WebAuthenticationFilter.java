@@ -9,8 +9,8 @@ import com.orainge.tools.spring_boot.security.utils.url.IgnoreUrlUtils;
 import com.orainge.tools.spring_boot.security.vo.SecurityUser;
 import com.orainge.tools.spring_boot.security.authentication.WebUserDetailsServiceImpl;
 import com.orainge.tools.spring_boot.security.vo.User;
-import com.orainge.tools.spring_boot.utils.ResponseUtils;
-import com.orainge.tools.spring_boot.vo.ApiResult;
+import com.orainge.tools.spring_boot.utils.http.HttpResponseUtils;
+import com.orainge.tools.spring_boot.vo.http.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -146,7 +146,7 @@ public class WebAuthenticationFilter extends OncePerRequestFilter {
             e.printStackTrace();
             // 其它异常
             SecurityContextHolder.clearContext();
-            ResponseUtils.writeBody(response, ApiResult.error().setMessage(systemExceptionTips));
+            HttpResponseUtils.writeBody(response, ApiResult.error().setMessage(systemExceptionTips));
         }
     }
 }

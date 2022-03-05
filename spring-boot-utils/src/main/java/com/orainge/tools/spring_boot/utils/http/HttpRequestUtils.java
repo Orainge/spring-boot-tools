@@ -1,6 +1,7 @@
-package com.orainge.tools.spring_boot.utils;
+package com.orainge.tools.spring_boot.utils.http;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.orainge.tools.spring_boot.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,7 @@ import java.util.Map;
  * @since 2022/3/5
  */
 @Slf4j
-public class RequestUtils {
+public class HttpRequestUtils {
     /**
      * 获取请求参数
      *
