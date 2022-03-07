@@ -1,6 +1,7 @@
 package com.orainge.tools.spring_boot.bean.http;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,13 +25,17 @@ public abstract class RequestBean {
      * 请在子类中重写该变量并添加该注解后实现 API 文档的生成
      */
     //    @ApiModelProperty("排序列")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @ApiModelProperty(hidden = true)
     private String orderColumn;
 
     /**
-     * 排序列<br>
+     * 排序方式<br>
      * 请在子类中重写该变量并添加该注解后实现 API 文档的生成
      */
     //    @ApiModelProperty("排序方式 (当且仅当参数 orderColumn 非空时生效) 升序: 0; 降序: 1; 默认值: 0")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @ApiModelProperty(hidden = true)
     private String orderDir;
 
     @ApiModelProperty(value = "第几页 默认值: 1; 取值范围: 1 <= pageNo", required = true)
