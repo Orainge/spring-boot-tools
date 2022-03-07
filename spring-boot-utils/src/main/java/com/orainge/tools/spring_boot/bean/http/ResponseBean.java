@@ -1,5 +1,6 @@
 package com.orainge.tools.spring_boot.bean.http;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,9 +21,11 @@ public abstract class ResponseBean<T> {
     private List<T> data;
 
     @ApiModelProperty("总条数")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long total;
 
     @ApiModelProperty("总页数")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer totalPage;
 
     public ResponseBean() {
