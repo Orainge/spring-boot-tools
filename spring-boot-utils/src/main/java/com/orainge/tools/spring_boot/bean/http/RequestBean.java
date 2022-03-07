@@ -48,10 +48,10 @@ public abstract class RequestBean {
     protected Integer maxPerPageCount = 10;
 
     /**
-     * 获取 SQL 查询通用参数<br>
+     * 创建并获取 SQL 查询通用参数<br>
      * 如果已经配置，则此方法会自动执行 PageHelper 分页操作
      */
-    public Map<String, Object> getSqlParams() {
+    public Map<String, Object> createSqlParams() {
         Map<String, Object> map = new HashMap<>();
 
         // 处理 SQL 查询参数
