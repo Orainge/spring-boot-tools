@@ -1,10 +1,10 @@
 package com.orainge.tools.spring_boot.security.handler;
 
-import com.orainge.tools.spring_boot.filter.MultiReadHttpServletRequest;
-import com.orainge.tools.spring_boot.filter.MultiReadHttpServletResponse;
+import com.orainge.tools.spring_boot.bean.http.ApiResult;
 import com.orainge.tools.spring_boot.security.config.CustomSecurityConfig;
 import com.orainge.tools.spring_boot.security.vo.SecurityUser;
 import com.orainge.tools.spring_boot.security.interfaces.handler.LoginSuccessHandler;
+import com.orainge.tools.spring_boot.utils.http.HttpResponseUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -31,10 +31,12 @@ public class WebLoginSuccessHandler implements AuthenticationSuccessHandler {
     private CustomSecurityConfig config;
 
     private static String tokenHeaderName;
+    private static String loginSuccessTips;
 
     @PostConstruct
     public void init() {
         tokenHeaderName = config.getToken().getHeaderName();
+        loginSuccessTips = config.getTips().getLoginSuccess();
     }
 
     @Override
@@ -50,5 +52,8 @@ public class WebLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         // 执行 Handler
         loginSuccessHandler.onSuccess(token, request, response, authentication);
+
+        // 返回登录成功信息
+        HttpResponseUtils.writeBody(response, ApiResult.success().setMessage(loginSuccessTips).setData(token));
     }
 }
