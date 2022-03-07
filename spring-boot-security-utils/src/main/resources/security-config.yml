@@ -39,7 +39,6 @@ security:
     get-token-exception: 获取 token 失败，请稍候再试
     no-user: 用户不存在
     login-success: 登录成功
-    login-fail: 登录失败
     login-exception: 登录失败，请稍后再试
     login-params-error: 登录请求参数不正确
     logout-success: 退出登录成功

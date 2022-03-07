@@ -44,7 +44,6 @@ public class WebLoginFailureHandler implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
-
         ApiResult<?> result;
         // 判断异常
         if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {

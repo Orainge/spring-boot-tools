@@ -1,9 +1,8 @@
 package com.orainge.tools.spring_boot.security.authentication;
 
 import com.orainge.tools.spring_boot.security.config.CustomSecurityConfig;
-import com.orainge.tools.spring_boot.security.interfaces.handler.CheckUserHandler;
+import com.orainge.tools.spring_boot.security.interfaces.handler.CheckAccountHandler;
 import com.orainge.tools.spring_boot.security.utils.token.TokenUtils;
-import com.orainge.tools.spring_boot.security.utils.token.handler.TokenCreateHandler;
 import com.orainge.tools.spring_boot.security.vo.SecurityUser;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -27,7 +26,7 @@ import javax.annotation.Resource;
 @ConditionalOnMissingBean(WebAuthenticationProvider.class)
 public class WebAuthenticationProvider implements AuthenticationProvider {
     @Resource
-    private CheckUserHandler checkUserHandler;
+    private CheckAccountHandler checkUserHandler;
 
     @Resource
     private UserDetailsService userDetailsService;
@@ -56,12 +55,9 @@ public class WebAuthenticationProvider implements AuthenticationProvider {
         SecurityUser<?> userInfo = (SecurityUser<?>) userDetailsService.loadUserByUsername(userName);
 
         // 检查密码是否正确
-        String checkResult = checkUserHandler.checkIfCorrect(userName, password, userInfo, authentication);
-
-        // 如果不正确，抛出异常
-        if (checkResult != null) {
-            throw new BadCredentialsException(checkResult);
-        }
+        // 这里要抛出异常
+        // 可以抛出的异常见 WebLoginFailureHandler
+        checkUserHandler.checkAccount(userName, password, userInfo, authentication);
 
         // 获取 token
         String token = tokenUtils.createToken(userInfo);

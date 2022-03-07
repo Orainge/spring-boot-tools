@@ -130,11 +130,6 @@ public class CustomSecurityConfig {
         private String loginSuccess = "登录成功";
 
         /**
-         * 登录失败
-         */
-        private String loginFail = "登录失败";
-
-        /**
          * 登录请求参数不正确
          */
         private String loginParamsError = "登录请求参数不正确";
