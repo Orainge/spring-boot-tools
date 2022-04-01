@@ -27,13 +27,16 @@ public class IgnoreUrlUtils {
     @Resource
     private CustomSecurityConfig config;
 
-    private static final List<String> IGNORE_URL_LIST = new LinkedList<>();
+    private static final List<String> IGNORE_LOGIN_URL_LIST = new LinkedList<>();
+
+    private static final List<String> IGNORE_ROLE_URL_LIST = new LinkedList<>();
 
     @PostConstruct
     public void init() {
-        IGNORE_URL_LIST.add(config.getUrl().getLogin().getUrl());
-        IGNORE_URL_LIST.addAll(config.getUrl().getIgnore());
-        IGNORE_URL_LIST.addAll(config.getUrl().getPermitAll());
+        IGNORE_LOGIN_URL_LIST.add(config.getUrl().getLogin().getUrl());
+        IGNORE_LOGIN_URL_LIST.addAll(config.getUrl().getIgnore());
+        IGNORE_LOGIN_URL_LIST.addAll(config.getUrl().getPermitAll());
+        IGNORE_ROLE_URL_LIST.addAll(config.getUrl().getIgnoreRole());
     }
 
     /**
@@ -42,9 +45,9 @@ public class IgnoreUrlUtils {
      * @param request HttpServletRequest
      * @return true: 是; false: 不是
      */
-    public boolean checkIfIgnore(HttpServletRequest request) {
+    public boolean checkIfIgnoreLogin(HttpServletRequest request) {
         String requestUrl = UrlUtils.buildRequestUrl(request);
-        for (String ignoreUrl : IGNORE_URL_LIST) {
+        for (String ignoreUrl : IGNORE_LOGIN_URL_LIST) {
             if (antPathMatcher.match(ignoreUrl, requestUrl)) {
                 // 如果是忽略访问的URL
                 return true;
@@ -60,8 +63,24 @@ public class IgnoreUrlUtils {
      * @param requestUrl 请求 URL (不包含项目二级路径)
      * @return true: 是; false: 不是
      */
-    public boolean checkIfIgnore(String requestUrl) {
-        for (String url : IGNORE_URL_LIST) {
+    public boolean checkIfIgnoreLogin(String requestUrl) {
+        for (String url : IGNORE_LOGIN_URL_LIST) {
+            if (antPathMatcher.match(url, requestUrl)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 检查是不是忽略角色的 URL (包括登录 URL)
+     *
+     * @param requestUrl 请求 URL (不包含项目二级路径)
+     * @return true: 是; false: 不是
+     */
+    public boolean checkIfIgnoreRole(String requestUrl) {
+        for (String url : IGNORE_ROLE_URL_LIST) {
             if (antPathMatcher.match(url, requestUrl)) {
                 return true;
             }

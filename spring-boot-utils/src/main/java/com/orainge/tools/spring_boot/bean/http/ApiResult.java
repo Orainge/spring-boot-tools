@@ -23,9 +23,30 @@ public class ApiResult<T> {
     public static final Integer UNAUTHORIZED_CODE = 401;
 
     /**
-     * 状态码: 无权限
+     * 提示语: 无权限
      */
     public static final Integer FORBIDDEN_CODE = 403;
+
+
+    /**
+     * 提示语: 成功
+     */
+    public static final String SUCCESS_MESSAGE = "SUCCESS";
+
+    /**
+     * 提示语: 失败
+     */
+    public static final String ERROR_MESSAGE = "ERROR";
+
+    /**
+     * 提示语: 未登录
+     */
+    public static final String UNAUTHORIZED_MESSAGE = "UNAUTHORIZED";
+
+    /**
+     * 提示语: 无权限
+     */
+    public static final String FORBIDDEN_MESSAGE = "FORBIDDEN";
 
     @JsonProperty(index = 1)
     @ApiModelProperty("结果代码 0: 成功; -1: 失败; 401: 未登录; 403: 无权限")
@@ -46,46 +67,46 @@ public class ApiResult<T> {
 
     public ApiResult<T> setSuccess() {
         this.code = SUCCESS_CODE;
-        this.message = "SUCCESS";
+        this.message = SUCCESS_MESSAGE;
         return this;
     }
 
     public ApiResult<T> setError() {
         this.code = ERROR_CODE;
-        this.message = "ERROR";
+        this.message = ERROR_MESSAGE;
         return this;
     }
 
     public static ApiResult<String> success() {
-        return new ApiResult<String>().setCode(SUCCESS_CODE).setMessage("SUCCESS");
+        return new ApiResult<String>().setCode(SUCCESS_CODE).setMessage(SUCCESS_MESSAGE);
     }
 
     public static <T> ApiResult<T> success(Class<T> clazz) {
-        return new ApiResult<T>().setCode(SUCCESS_CODE).setMessage("SUCCESS");
+        return new ApiResult<T>().setCode(SUCCESS_CODE).setMessage(SUCCESS_MESSAGE);
     }
 
     public static ApiResult<String> error() {
-        return new ApiResult<String>().setCode(ERROR_CODE).setMessage("ERROR");
+        return new ApiResult<String>().setCode(ERROR_CODE).setMessage(ERROR_MESSAGE);
     }
 
     public static <T> ApiResult<T> error(Class<T> clazz) {
-        return new ApiResult<T>().setCode(ERROR_CODE).setMessage("ERROR");
+        return new ApiResult<T>().setCode(ERROR_CODE).setMessage(ERROR_MESSAGE);
     }
 
     public static ApiResult<String> forbidden() {
-        return new ApiResult<String>().setCode(FORBIDDEN_CODE).setMessage("FORBIDDEN");
+        return new ApiResult<String>().setCode(FORBIDDEN_CODE).setMessage(FORBIDDEN_MESSAGE);
     }
 
     public static <T> ApiResult<T> forbidden(Class<T> clazz) {
-        return new ApiResult<T>().setCode(FORBIDDEN_CODE).setMessage("FORBIDDEN");
+        return new ApiResult<T>().setCode(FORBIDDEN_CODE).setMessage(FORBIDDEN_MESSAGE);
     }
 
     public static ApiResult<String> unauthorized() {
-        return new ApiResult<String>().setCode(UNAUTHORIZED_CODE).setMessage("UNAUTHORIZED");
+        return new ApiResult<String>().setCode(UNAUTHORIZED_CODE).setMessage(UNAUTHORIZED_MESSAGE);
     }
 
     public static <T> ApiResult<T> unauthorized(Class<T> clazz) {
-        return new ApiResult<T>().setCode(UNAUTHORIZED_CODE).setMessage("UNAUTHORIZED");
+        return new ApiResult<T>().setCode(UNAUTHORIZED_CODE).setMessage(UNAUTHORIZED_MESSAGE);
     }
 
     public String getMessage() {

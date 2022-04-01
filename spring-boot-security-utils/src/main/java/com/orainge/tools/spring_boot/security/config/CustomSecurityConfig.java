@@ -90,6 +90,11 @@ public class CustomSecurityConfig {
          * 在此配置的路径经过 Spring Security 过滤器链，但 Spring Security 会放行
          */
         private List<String> permitAll = new LinkedList<>();
+
+        /**
+         * 需要登录，但是忽略角色判断的 URL
+         */
+        private List<String> ignoreRole = new LinkedList<>();
     }
 
     @Data

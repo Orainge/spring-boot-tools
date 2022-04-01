@@ -63,8 +63,7 @@ public class SecurityUser<T> implements UserDetails {
     }
 
     /**
-     * 获取该用户拥有哪些角色<br>
-     * 在这里是用户在哪些部门
+     * 获取该用户拥有哪些角色
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

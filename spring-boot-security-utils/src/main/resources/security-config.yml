@@ -33,7 +33,10 @@ security:
     # (推荐) 不需要登录就可以访问的 URL
     # 在此配置的路径经过 Spring Security 过滤器链，但 Spring Security 会放行
     permit-all:
-  #      - /noLoginUrl
+    #      - /noLoginUrl
+    # 需要登录，但是忽略角色判断的 URL
+    ignore-role:
+    #      - /ignoreRole
   # 提示语配置
   tips:
     get-token-exception: 获取 token 失败，请稍候再试

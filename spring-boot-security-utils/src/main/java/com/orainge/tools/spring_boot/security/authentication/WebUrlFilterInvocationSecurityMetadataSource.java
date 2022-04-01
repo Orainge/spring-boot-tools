@@ -46,6 +46,9 @@ public class WebUrlFilterInvocationSecurityMetadataSource implements FilterInvoc
         // 获取 Filter 链中的自定义 Request
         SecurityContextHolderAwareRequestWrapper wrapper = (SecurityContextHolderAwareRequestWrapper) filterInvocation.getRequest();
 
+        // 获取当前请求 URL
+        String requestUrl = filterInvocation.getRequestUrl();
+
         // 检查当前访问的 URL 是否忽略鉴权
         boolean ignoreUrlTag = false;
 
@@ -59,7 +62,7 @@ public class WebUrlFilterInvocationSecurityMetadataSource implements FilterInvoc
             }
         } else {
             // 调用工具类判断
-            if (ignoreUrlUtils.checkIfIgnore(filterInvocation.getRequestUrl())) {
+            if (ignoreUrlUtils.checkIfIgnoreLogin(requestUrl)) {
                 // 当前访问的 URL 忽略鉴权
                 ignoreUrlTag = true;
             }
@@ -67,17 +70,21 @@ public class WebUrlFilterInvocationSecurityMetadataSource implements FilterInvoc
 
         // 如果当前访问的 URL 是否忽略鉴权，则返回 null
         if (ignoreUrlTag) {
-            return SecurityConfig.createList(SecurityConstants.ROLE_IGNORE_LOGIN_URL);
+            return SecurityConstants.ROLE_IGNORE_LOGIN_LIST;
         }
 
-        // 获取当前请求 URL
-        String requestUrl = filterInvocation.getRequestUrl();
+        // 检查是否为忽略角色的 URL
+        // 调用工具类判断
+        if (ignoreUrlUtils.checkIfIgnoreRole(requestUrl)) {
+            // 当前访问的 URL 忽略鉴权
+            return SecurityConstants.ROLE_IGNORE_ROLE_LIST;
+        }
 
         // 获取角色列表
         List<? extends Role> needRoleList = roleUtils.getNeedRoleList(requestUrl);
         if (needRoleList.isEmpty()) {
             // 如果没有相应的角色列表，说明没有为该 URL 没有配置权限
-            return SecurityConfig.createList(SecurityConstants.ROLE_NO_CONFIGURE_URL);
+            return SecurityConstants.ROLE_NO_CONFIGURE_LIST;
         } else {
             // 如果有相应的角色列表，则保存该 URL 对应角色权限信息
             return SecurityConfig.createList(

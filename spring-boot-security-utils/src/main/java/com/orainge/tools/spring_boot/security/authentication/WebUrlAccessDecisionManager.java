@@ -67,6 +67,12 @@ public class WebUrlAccessDecisionManager implements AccessDecisionManager {
                 return;
             }
 
+            // 如果角色表示为 "忽略角色"
+            if (SecurityConstants.ROLE_IGNORE_ROLE_URL.equals(needRole)) {
+                // 通过验证
+                return;
+            }
+
             // 如果角色表示为 "URL 未配置权限"，表示当前请求的 URL 不在系统可访问的 URL 中
             if (SecurityConstants.ROLE_NO_CONFIGURE_URL.equals(needRole)) {
                 throw new AccessDeniedException(noConfigurePermission);

@@ -92,7 +92,7 @@ public class WebAuthenticationFilter extends OncePerRequestFilter {
         String requestUrl = UrlUtils.buildRequestUrl(request);
 
         // 检查请求 URL 是否为忽略的 URL
-        if (ignoreUrlUtils.checkIfIgnore(request)) {
+        if (ignoreUrlUtils.checkIfIgnoreLogin(request)) {
             // 如果是忽略访问的URL
             // 标识该 URL 是忽略访问的
             wrappedRequest.addExtraParams("IGNORE_URL", true);
