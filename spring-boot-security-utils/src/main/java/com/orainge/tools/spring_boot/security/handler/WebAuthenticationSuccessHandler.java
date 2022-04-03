@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2022/3/2
  */
 @Component
-@ConditionalOnMissingBean(WebLoginSuccessHandler.class)
-public class WebLoginSuccessHandler implements AuthenticationSuccessHandler {
+@ConditionalOnMissingBean(WebAuthenticationSuccessHandler.class)
+public class WebAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Resource
     private LoginSuccessHandler loginSuccessHandler;
 
@@ -54,6 +54,18 @@ public class WebLoginSuccessHandler implements AuthenticationSuccessHandler {
         loginSuccessHandler.onSuccess(token, request, response, authentication);
 
         // 返回登录成功信息
-        HttpResponseUtils.writeBody(response, ApiResult.success().setMessage(loginSuccessTips).setData(token));
+        HttpResponseUtils.writeBody(response, new ApiResult<>().setSuccess()
+                .setMessage(loginSuccessTips)
+                .setData(getSuccessData(securityUser, token)));
+    }
+
+    /**
+     * 获取登录成功的数据<br>
+     * 默认返回 token，如有需要请重载此方法
+     *
+     * @param token 登录成功的密钥
+     */
+    public Object getSuccessData(SecurityUser<?> securityUser, String token) {
+        return token;
     }
 }
