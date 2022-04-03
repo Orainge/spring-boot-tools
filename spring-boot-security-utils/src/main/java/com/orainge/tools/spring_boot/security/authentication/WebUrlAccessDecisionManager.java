@@ -47,15 +47,6 @@ public class WebUrlAccessDecisionManager implements AccessDecisionManager {
      */
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> collection) throws AccessDeniedException, AuthenticationException {
-        // 遍历角色
-//        if (authentication instanceof AnonymousAuthenticationToken) {
-//            // 如果是匿名访问，则返回 "未登录"
-//            throw new BadCredentialsException(noLoginTips);
-//        } else {
-//            // 如果已登录，表示该
-//            throw new AccessDeniedException(noPermissionTips);
-//        }
-//
         // 遍历请求当前 URL 所需的角色
         for (ConfigAttribute ca : collection) {
             // 获取请求当前 URL 所需的权限 ID
