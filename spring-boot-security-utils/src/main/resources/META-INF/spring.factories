@@ -11,7 +11,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.orainge.tools.spring_boot.security.filter.WebAuthenticationFilter,\
   com.orainge.tools.spring_boot.security.filter.WebAuthenticationProcessingFilter,\
   com.orainge.tools.spring_boot.security.handler.WebLoginFailureHandler,\
-  com.orainge.tools.spring_boot.security.handler.WebLoginSuccessHandler,\
+  com.orainge.tools.spring_boot.security.handler.WebAuthenticationSuccessHandler,\
   com.orainge.tools.spring_boot.security.handler.WebLogoutHandler,\
   com.orainge.tools.spring_boot.security.handler.WebLogoutSuccessHandler,\
   com.orainge.tools.spring_boot.security.handler.WebPermissionDeniedHandler,\

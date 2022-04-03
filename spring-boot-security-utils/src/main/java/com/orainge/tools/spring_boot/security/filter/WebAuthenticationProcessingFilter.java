@@ -5,7 +5,7 @@ import com.orainge.tools.spring_boot.security.authentication.WebAuthenticationMa
 import com.orainge.tools.spring_boot.security.config.CustomSecurityConfig;
 import com.orainge.tools.spring_boot.security.dto.LoginParams;
 import com.orainge.tools.spring_boot.security.handler.WebLoginFailureHandler;
-import com.orainge.tools.spring_boot.security.handler.WebLoginSuccessHandler;
+import com.orainge.tools.spring_boot.security.handler.WebAuthenticationSuccessHandler;
 import com.orainge.tools.spring_boot.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -39,7 +39,7 @@ public class WebAuthenticationProcessingFilter extends AbstractAuthenticationPro
     private WebAuthenticationManager webAuthenticationManager;
 
     @Resource
-    private WebLoginSuccessHandler webAuthenticationSuccessHandler;
+    private WebAuthenticationSuccessHandler webAuthenticationSuccessHandler;
 
     @Resource
     private WebLoginFailureHandler webAuthenticationFailureHandler;
