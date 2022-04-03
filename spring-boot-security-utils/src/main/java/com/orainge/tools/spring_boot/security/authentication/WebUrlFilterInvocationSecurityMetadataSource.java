@@ -5,6 +5,7 @@ import com.orainge.tools.spring_boot.security.consts.SecurityConstants;
 import com.orainge.tools.spring_boot.security.utils.url.IgnoreUrlUtils;
 import com.orainge.tools.spring_boot.security.vo.Role;
 import com.orainge.tools.spring_boot.security.utils.role.RoleUtils;
+import com.orainge.tools.spring_boot.security.vo.User;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -80,6 +81,19 @@ public class WebUrlFilterInvocationSecurityMetadataSource implements FilterInvoc
             return SecurityConstants.ROLE_IGNORE_ROLE_LIST;
         }
 
+        // 检查当前用户是否为忽略角色判断的用户
+        User<?> user = (User<?>) wrapper.getUserPrincipal();
+        if (user != null) {
+            Boolean checkResult = checkIfIgnoreRole(user, requestUrl);
+            if (checkResult == null) {
+                // URL 未配置
+                return SecurityConstants.ROLE_NO_CONFIGURE_LIST;
+            } else if (checkResult) {
+                // 当前用户忽略角色判断
+                return SecurityConstants.ROLE_IGNORE_ROLE_LIST;
+            }
+        }
+
         // 获取角色列表
         List<? extends Role> needRoleList = roleUtils.getNeedRoleList(requestUrl);
         if (needRoleList.isEmpty()) {
@@ -93,6 +107,17 @@ public class WebUrlFilterInvocationSecurityMetadataSource implements FilterInvoc
                             .toArray(String[]::new)
             );
         }
+    }
+
+    /**
+     * 检查当前用户是否为忽略角色的用户
+     *
+     * @param user       用户凭据
+     * @param requestUrl 当前请求的 URL
+     * @return null: URL 非法 (不存在该 URL) true: 是; false: 否
+     */
+    public Boolean checkIfIgnoreRole(User<?> user, String requestUrl) {
+        return false;
     }
 
     @Override
