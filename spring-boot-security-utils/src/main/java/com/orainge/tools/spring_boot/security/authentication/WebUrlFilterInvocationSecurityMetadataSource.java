@@ -5,10 +5,13 @@ import com.orainge.tools.spring_boot.security.consts.SecurityConstants;
 import com.orainge.tools.spring_boot.security.utils.url.IgnoreUrlUtils;
 import com.orainge.tools.spring_boot.security.vo.Role;
 import com.orainge.tools.spring_boot.security.utils.role.RoleUtils;
+import com.orainge.tools.spring_boot.security.vo.SecurityUser;
 import com.orainge.tools.spring_boot.security.vo.User;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
@@ -48,7 +51,7 @@ public class WebUrlFilterInvocationSecurityMetadataSource implements FilterInvoc
         SecurityContextHolderAwareRequestWrapper wrapper = (SecurityContextHolderAwareRequestWrapper) filterInvocation.getRequest();
 
         // 获取当前请求 URL
-        String requestUrl = filterInvocation.getRequestUrl();
+        String requestUrl = wrapper.getRequestURI().replace(wrapper.getContextPath(), "");
 
         // 检查当前访问的 URL 是否忽略鉴权
         boolean ignoreUrlTag = false;
@@ -82,7 +85,7 @@ public class WebUrlFilterInvocationSecurityMetadataSource implements FilterInvoc
         }
 
         // 检查当前用户是否为忽略角色判断的用户
-        User<?> user = (User<?>) wrapper.getUserPrincipal();
+        User<?> user = ((SecurityUser<?>) ((Authentication) wrapper.getUserPrincipal()).getPrincipal()).getUser();
         if (user != null) {
             Boolean checkResult = checkIfIgnoreRole(user, requestUrl);
             if (checkResult == null) {
