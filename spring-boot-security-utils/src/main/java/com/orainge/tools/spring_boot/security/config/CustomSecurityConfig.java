@@ -40,7 +40,7 @@ public class CustomSecurityConfig {
     private Tips tips;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         // 忽略错误页面
         this.url.permitAll.add("/error");
     }
@@ -119,6 +119,11 @@ public class CustomSecurityConfig {
 
     @Data
     public static class Tips {
+        /**
+         * 账号配置异常
+         */
+        private String accountConfigureException = "账号配置异常，请联系管理员处理";
+
         /**
          * 获取 Token 失败
          */

@@ -2,6 +2,7 @@ package com.orainge.tools.spring_boot.security.handler;
 
 import com.orainge.tools.spring_boot.bean.http.ApiResult;
 import com.orainge.tools.spring_boot.security.config.CustomSecurityConfig;
+import com.orainge.tools.spring_boot.security.exception.AccountConfigureException;
 import com.orainge.tools.spring_boot.security.interfaces.handler.LoginFailHandler;
 import com.orainge.tools.spring_boot.utils.http.HttpResponseUtils;
 import org.slf4j.Logger;
@@ -49,6 +50,9 @@ public class WebLoginFailureHandler implements AuthenticationFailureHandler {
         if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
             // 密码错误或用户不存在，提示信息在 Exception 里
             result = ApiResult.unauthorized().setMessage(e.getMessage());
+        } else if (e instanceof AccountConfigureException) {
+            // 账号配置异常
+            result = ApiResult.unauthorized().setMessage(tips.getAccountConfigureException());
         } else if (e instanceof LockedException) {
             result = ApiResult.unauthorized().setMessage(tips.getAccountLocked());
         } else if (e instanceof CredentialsExpiredException) {
