@@ -116,57 +116,55 @@ public abstract class RequestBean {
         // 避免由前端决定后端哪些列进行排序，防止可能的 SQL 注入攻击
         Map<String, String> acceptableOrderColumn = getAcceptableOrderColumn();
 
-        if (acceptableOrderColumn == null || acceptableOrderColumn.isEmpty()) {
-            return;
-        }
+        if (acceptableOrderColumn != null && !acceptableOrderColumn.isEmpty()) {
+            // 处理前端提交的排序参数
+            String orderColumn = getOrderColumn();
+            String orderDir = getOrderDir();
 
-        // 处理前端提交的排序参数
-        String orderColumn = getOrderColumn();
-        String orderDir = getOrderDir();
+            // 检查排序方式参数是否正确
+            if (!StringUtils.isEmpty(orderColumn) && !StringUtils.isEmpty(orderDir)) {
+                if (StringUtils.isEmpty(orderDir) || "0".equals(orderDir) || "1".equals(orderDir)) {
+                    if (StringUtils.isEmpty(orderDir) || "0".equals(orderDir)) {
+                        // 升序 (默认值)
+                        orderDir = "asc";
+                    } else if ("1".equals(orderDir)) {
+                        // 降序
+                        orderDir = "desc";
+                    }
 
-        // 检查排序方式参数是否正确
-        if (!StringUtils.isEmpty(orderColumn) && !StringUtils.isEmpty(orderDir)) {
-            if (StringUtils.isEmpty(orderDir) || "0".equals(orderDir) || "1".equals(orderDir)) {
-                if (StringUtils.isEmpty(orderDir) || "0".equals(orderDir)) {
-                    // 升序 (默认值)
-                    orderDir = "asc";
-                } else if ("1".equals(orderDir)) {
-                    // 降序
-                    orderDir = "desc";
-                }
-
-                // 检查排序列参数是否合法
-                for (Map.Entry<String, String> item : acceptableOrderColumn.entrySet()) {
-                    if (getOrderColumn().equals(item.getKey())) {
-                        sqlParams.put("orderColumn", item.getValue());
-                        sqlParams.put("orderDir", orderDir);
-                        break;
+                    // 检查排序列参数是否合法
+                    for (Map.Entry<String, String> item : acceptableOrderColumn.entrySet()) {
+                        if (getOrderColumn().equals(item.getKey())) {
+                            sqlParams.put("orderColumn", item.getValue());
+                            sqlParams.put("orderDir", orderDir);
+                            break;
+                        }
                     }
                 }
+
+                // 排序方式提交其它值将不开启排序
+            }
+        }
+
+        // 如果开启分页
+        if (enablePageHelper()) {
+            // 设置页码
+            Integer pageNo = getPageNo();
+            if (pageNo == null || pageNo <= 0) {
+                // 如果页码数为空/页码数 <= 0，重置为第 1 页
+                pageNo = 1;
             }
 
-            // 排序方式提交其它值将不开启排序
-        }
+            // 设置每页条数
+            Integer pageSize = getPageNo();
+            if (pageSize == null || pageSize <= 0) {
+                // 如果每页条数为空/页码数 <= 0，重置为每页 10 条
+                pageSize = 10;
+            } else if (pageSize > maxPerPageCount) {
+                // 如果每页条数 >= 0，重置为每页 100 条
+                pageSize = maxPerPageCount;
+            }
 
-        // 设置页码
-        Integer pageNo = getPageNo();
-        if (pageNo == null || pageNo <= 0) {
-            // 如果页码数为空/页码数 <= 0，重置为第 1 页
-            pageNo = 1;
-        }
-
-        // 设置每页条数
-        Integer pageSize = getPageNo();
-        if (pageSize == null || pageSize <= 0) {
-            // 如果每页条数为空/页码数 <= 0，重置为每页 10 条
-            pageSize = 10;
-        } else if (pageSize > maxPerPageCount) {
-            // 如果每页条数 >= 0，重置为每页 100 条
-            pageSize = maxPerPageCount;
-        }
-
-        if (enablePageHelper()) {
-            // 开启分页设置
             PageHelper.startPage(pageNo, pageSize);
         }
     }
