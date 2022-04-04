@@ -156,7 +156,7 @@ public abstract class RequestBean {
             }
 
             // 设置每页条数
-            Integer pageSize = getPageNo();
+            Integer pageSize = getPageSize();
             if (pageSize == null || pageSize <= 0) {
                 // 如果每页条数为空/页码数 <= 0，重置为每页 10 条
                 pageSize = 10;
