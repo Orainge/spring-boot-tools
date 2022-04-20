@@ -46,7 +46,10 @@ public class CustomSecurityConfig {
         // 忽略错误页面
         this.url.permitAll.add("/error");
 
-        // 忽略【需要登录】
+        // 忽略登录接口
+        this.url.permitAll.add(this.url.login.url);
+
+        // 提示【需要登录，忽略角色】的 URL
         log.info("[Spring Security 配置] 已添加 [需要登录，但是忽略角色判断的 URL]: {}", this.url.ignoreRole);
     }
 
