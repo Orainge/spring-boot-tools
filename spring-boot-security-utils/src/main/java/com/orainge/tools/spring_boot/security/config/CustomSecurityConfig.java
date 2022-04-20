@@ -3,6 +3,7 @@ package com.orainge.tools.spring_boot.security.config;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @Configuration
 @ConfigurationProperties(prefix = "security")
 @Data
+@Slf4j
 public class CustomSecurityConfig {
     /**
      * JWT 配置
@@ -43,6 +45,9 @@ public class CustomSecurityConfig {
     public void init() {
         // 忽略错误页面
         this.url.permitAll.add("/error");
+
+        // 忽略【需要登录】
+        log.info("[Spring Security 配置] 已添加 [需要登录，但是忽略角色判断的 URL]: {}", this.url.ignoreRole);
     }
 
     @Data
