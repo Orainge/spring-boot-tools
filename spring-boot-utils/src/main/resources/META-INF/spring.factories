@@ -1,4 +1,5 @@
 # Spring boot 自动注入
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.orainge.tools.spring_boot.utils.JsonUtils,\
-  com.orainge.tools.spring_boot.utils.BeanUtils
+  com.orainge.tools.spring_boot.utils.BeanUtils,\
+  com.orainge.tools.spring_boot.utils.SpringUtils\
