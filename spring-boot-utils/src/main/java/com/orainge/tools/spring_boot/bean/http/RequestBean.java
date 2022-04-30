@@ -148,24 +148,32 @@ public abstract class RequestBean {
 
         // 如果开启分页
         if (enablePageHelper()) {
-            // 设置页码
-            Integer pageNo = getPageNo();
-            if (pageNo == null || pageNo <= 0) {
-                // 如果页码数为空/页码数 <= 0，重置为第 1 页
-                pageNo = 1;
-            }
-
-            // 设置每页条数
-            Integer pageSize = getPageSize();
-            if (pageSize == null || pageSize <= 0) {
-                // 如果每页条数为空/页码数 <= 0，重置为每页 10 条
-                pageSize = 10;
-            } else if (pageSize > maxPerPageCount) {
-                // 如果每页条数 >= 0，重置为每页 100 条
-                pageSize = maxPerPageCount;
-            }
-
-            PageHelper.startPage(pageNo, pageSize);
+            // 执行分页操作
+            activatePageHelper();
         }
+    }
+
+    /**
+     * 激活分页
+     */
+    public void activatePageHelper() {
+        // 设置页码
+        Integer pageNo = getPageNo();
+        if (pageNo == null || pageNo <= 0) {
+            // 如果页码数为空/页码数 <= 0，重置为第 1 页
+            pageNo = 1;
+        }
+
+        // 设置每页条数
+        Integer pageSize = getPageSize();
+        if (pageSize == null || pageSize <= 0) {
+            // 如果每页条数为空/页码数 <= 0，重置为每页 10 条
+            pageSize = 10;
+        } else if (pageSize > maxPerPageCount) {
+            // 如果每页条数 >= 0，重置为每页 100 条
+            pageSize = maxPerPageCount;
+        }
+
+        PageHelper.startPage(pageNo, pageSize);
     }
 }
